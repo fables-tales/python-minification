@@ -1,4 +1,5 @@
 import inspect
+import sys
 
 #generates a skeleton class listing
 def generate_skeleton_class(class_name, class_type):
@@ -63,8 +64,12 @@ def analyse(libraryname):
     return {"functions":functions, "classes":classes, "variables":vars}
 
 if __name__ == "__main__":
-    interface = analyse("tests.test1")
-    print_vars(interface["variables"])
-    print_classes(interface["classes"])
-    print_functions(interface["functions"])
+    if len(sys.argv) != 2:
+        print "Usage is: ./minify <modulespec> where modulespec is a description of a python module"
+        sys.exit(1)
+    else:
+        interface = analyse(sys.argv[1])
+        print_vars(interface["variables"])
+        print_classes(interface["classes"])
+        print_functions(interface["functions"])
 
